@@ -15,9 +15,11 @@ main.so: main.o
 	-lefi -lgnuefi
 
 main.efi: main.so
-	objcopy -j .text -j .sdata -j .data -j .dynamic -j .dynsym \
+	objcopy -j .text -j .data -j .dynamic -j .dynsym \
 	-j .rel -j .rela -j .reloc \
-	--target=efi-app-x86_64 main.so main.efi
+	--output-target=pei-x86-64 \
+	--subsystem=10 \
+	main.so main.efi
 
 clean:
 	rm -f main.o main.so main.efi
